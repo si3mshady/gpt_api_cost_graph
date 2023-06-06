@@ -7,7 +7,7 @@ import time
 
 
 
-API_KEY = "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"
+API_KEY = ""
 # API_ENDPOINT = "https://api.openai.com/dashboard/billing/usage?end_date=2023-07-01&start_date=2023-06-01"
 app = Flask(__name__)
 CORS(app)  # Enable CORS for cross-origin requestsx
@@ -26,6 +26,7 @@ def generate_api_endpoint_days_back(days_back=7):
     API_ENDPOINT = f"https://api.openai.com/dashboard/billing/usage?{date_string}"
     return API_ENDPOINT
 
+
 def track_api_usage():
     headers = {
         "Authorization": f"Bearer {API_KEY}",
@@ -37,29 +38,26 @@ def track_api_usage():
         
         response = requests.get(generate_api_endpoint_days_back(), headers=headers)
         if response.status_code == 200:
-
             data = response.json()
+    
+
             usage = data['total_usage']
-            # dict_keys(['object', 'daily_costs', 'total_usage'])
-            # print(usage)
-            usage_data.append(usage) #get total usage
-            return  usage
-            
+            print(usage)
+            usage_data.append({
+               'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'cost': usage
+            })
+            print(usage_data)
             print('New data collected')
 
-            time.sleep(3)  # Track usage every 60 seconds
-        else:
-            print(response.status_code)
-            time.sleep(3)  
-
+        time.sleep(3)  # Track usage every 3 seconds
     except Exception as e:
         print(str(e))
 
 @app.route("/api/usage", methods=["GET"])
 def get_api_usage():
     track_api_usage()
-    # print(type(usage_data))
-    # print([(usage_data)[-1]])
+    
     return jsonify(usage_data)
 
 

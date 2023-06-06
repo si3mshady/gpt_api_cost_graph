@@ -13,10 +13,11 @@ const App = () => {
         const data = await response.json();
         console.log(data)
         const transformedData = data.map((item) => ({
-          name: `API Total Cost`,
-          cost: item,
-         
+          name: `Cost as of ${item.date}`,
+          cost: item.cost,
+          // date: item.date
         }));
+        console.log(transformedData)
         setUsageData(transformedData);
       } catch (error) {
         console.error('Error fetching usage data:', error);
@@ -24,21 +25,22 @@ const App = () => {
     };
 
     fetchUsageData();
-  }, []);
+  }, [usageData]);
 
   return (
-    <div>
+    <div className="container">
       <h1>API Usage Graph</h1>
-      <LineChart width={730} height={250} data={usageData}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="cost" stroke="#8884d8" />
-      
-      </LineChart>
+      <div className="chart-container">
+        <LineChart width={730} height={250} data={usageData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="cost" stroke="#8884d8" />
+        </LineChart>
+      </div>
     </div>
   );
 };
