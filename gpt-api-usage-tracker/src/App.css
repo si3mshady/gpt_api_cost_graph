@@ -1,10 +1,19 @@
 .container {
+  margin: auto;
+  padding: auto;
   display: flex;
-  justify-content: center;
+  /* background: #B8FB3C; */
   align-items: center;
   height: 100vh;
+  /* width: 100vh; */
 }
 
-.chart-container {
+.chart-container  {
+  background: black;
+  color: #0A0A;
+
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: space-around;
   text-align: center;
 }

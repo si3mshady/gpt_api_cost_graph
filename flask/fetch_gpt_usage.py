@@ -32,7 +32,6 @@ def track_api_usage():
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json"
     }
-
     try:
         print('Starting data collection...')
         

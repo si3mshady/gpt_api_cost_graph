@@ -1,10 +1,15 @@
-.container {
+/* .container {
+  margin: auto;
   display: flex;
-  justify-content: center;
+  
   align-items: center;
   height: 100vh;
 }
 
-.chart-container {
+.chart-container > {
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
-}
+} */
